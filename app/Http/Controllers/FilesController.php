@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class FilesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,24 +19,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
-    }
-
-    public function register(Request $request)
-    {
-        User::query()->create([
-            'login' => $request->get('login'),
-            'password' => Hash::make($request->get('password')),
-            'rules' => $request->has('rules') ? $request->get('rules') : "USER"
-        ]) ;
-        return response()->json([
-            'message' => 'User is created!'
-        ]);
-    }
-
-    public function login(Request $request){
-        $user = User::query()->where('login', $request->get('login'))->where('password', Hash::make($request->get('password')))->first();
-
+        //
     }
 
     /**

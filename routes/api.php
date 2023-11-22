@@ -21,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('city', \App\Http\Controllers\CityController::class);
 Route::apiResource('country', \App\Http\Controllers\CountryController::class);
 Route::apiResource('access-list', \App\Http\Controllers\AccessListController::class);
+Route::apiResource('company', \App\Http\Controllers\CompanyController::class);
+Route::post('/login', [\App\Http\Controllers\UserController::class, 'login']);
+Route::post('/register', [\App\Http\Controllers\UserController::class, 'register']);
