@@ -13,6 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int $id
  * @property string $login
  * @property string $password
+ * @property string $rules
  */
 class User extends Authenticatable
 {
@@ -26,8 +27,10 @@ class User extends Authenticatable
     protected $fillable = [
         'login',
         'password',
+        'rules'
     ];
 
+    public $timestamps = false;
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -44,7 +47,6 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'created_at' => 'datetime',
         'password' => 'hashed',
     ];
 }

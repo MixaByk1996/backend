@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -24,7 +25,7 @@ class UserController extends Controller
 
     }
 
-    public function register(Request $request)
+    public function register(Request $request): \Illuminate\Http\JsonResponse
     {
         User::query()->create([
             'login' => $request->get('login'),
@@ -36,9 +37,33 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function login(Request $request){
-        $user = User::query()->where('login', $request->get('login'))->where('password', Hash::make($request->get('password')))->first();
+        $request->validate([
+            'login' => 'required|email',
+            'password' => 'required',
+            'device_name' => 'required',
+        ]);
 
+        $user = User::where('login', $request->get('login'))->first();
+
+        if (! $user || ! Hash::check($request->get('password'), $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
+        }
+
+        return $user->createToken($request->get('device_name'))->plainTextToken;
+
+    }
+
+    public function logout(Request $request){
+        $request->user()->currentAccessToken()->delete();
+        return response()->json([
+            'message' => 'You are exiting'
+        ]);
     }
 
     /**
