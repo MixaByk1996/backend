@@ -23,7 +23,7 @@ class City extends Model
 
     public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Country::class, 'city_id');
+        return $this->belongsTo(Country::class);
     }
 
     public function companies(): \Illuminate\Database\Eloquent\Relations\HasMany

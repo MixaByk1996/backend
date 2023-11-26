@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Collections\AccessListCollection;
 use App\Models\AccessList;
 use Illuminate\Http\Request;
+use Spatie\FlareClient\Http\Exceptions\BadResponse;
 
 class AccessListController extends Controller
 {
@@ -29,6 +30,23 @@ class AccessListController extends Controller
         ]);
     }
 
+    /**
+     * @throws BadResponse
+     */
+    public function hashIpAddress(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $ip = $request->ip();
+        $obj = AccessList::query()->where('address', $ip)->first();
+        if($obj){
+            return response()->json([
+                'message' => $ip
+            ]);
+        }
+        else{
+            throw new BadResponse('Текущий ip дресс не включен в белый лист');
+        }
+
+    }
     /**
      * Display the specified resource.
      */

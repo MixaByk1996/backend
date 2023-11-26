@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $ip_address
+ * @property string $address
  */
 class AccessList extends Model
 {
@@ -15,6 +15,6 @@ class AccessList extends Model
     public $table = 'access_list';
     public $timestamps = false;
     protected $fillable = [
-        'ip_address'
+        'address'
     ];
 }

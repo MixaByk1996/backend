@@ -42,7 +42,7 @@ class UserController extends Controller
      */
     public function login(Request $request){
         $request->validate([
-            'login' => 'required|email',
+            'login' => 'required',
             'password' => 'required',
             'device_name' => 'required',
         ]);
@@ -59,7 +59,8 @@ class UserController extends Controller
 
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request): \Illuminate\Http\JsonResponse
+    {
         $request->user()->currentAccessToken()->delete();
         return response()->json([
             'message' => 'You are exiting'

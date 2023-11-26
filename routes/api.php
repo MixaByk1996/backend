@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return auth()->user();
 });
 
 Route::apiResource('city', \App\Http\Controllers\CityController::class);
@@ -28,3 +28,4 @@ Route::apiResource('subprojects', \App\Http\Controllers\SubprojectController::cl
 Route::post('/login', [\App\Http\Controllers\UserController::class, 'login']);
 Route::post('/register', [\App\Http\Controllers\UserController::class, 'register']);
 Route::post('/logout', [\App\Http\Controllers\UserController::class, 'logout']);
+Route::get('/has-address', [\App\Http\Controllers\AccessListController::class, 'hashIpAddress']);
