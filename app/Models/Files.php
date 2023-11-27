@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $type
  * @property string $file_url
- * @property-read mixed $subproject
+ * @property-read mixed $filestable
  */
 class Files extends Model
 {
@@ -27,9 +27,10 @@ class Files extends Model
         'created_at' => 'datetime'
     ];
 
-
-    public function subproject(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function filestable(): \Illuminate\Database\Eloquent\Relations\MorphTo
     {
-        return $this->belongsTo(Subproject::class);
+        return $this->morphTo();
     }
+
+
 }

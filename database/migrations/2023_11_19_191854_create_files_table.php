@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('type');
             $table->string('file_url');
-            $table->integer('subproject_id');
+            $table->morphs('filestable');
             $table->timestamps();
         });
     }

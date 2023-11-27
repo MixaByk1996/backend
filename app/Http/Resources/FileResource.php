@@ -23,7 +23,7 @@ class FileResource extends JsonResource
             'name' => $this->name,
             'type' => $this->type,
             'file_url' => $this->file_url,
-            'subproject' => $this->subproject,
+            'filestable' => $this->filestable,
         ];
     }
 }

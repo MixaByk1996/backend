@@ -24,13 +24,15 @@ class Subproject extends Model
         'created_at' => 'datetime'
     ];
 
-    public function files(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function files(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
-        return $this->hasMany(Files::class, 'subproject_id');
+        return $this->morphMany(Files::class, 'filestable');
     }
 
     public function project(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
+
+
 }

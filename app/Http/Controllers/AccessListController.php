@@ -26,7 +26,7 @@ class AccessListController extends Controller
     {
         AccessList::query()->create($request->all());
         return response()->json([
-            'message' => 'IP addess added to white list!'
+            'message' => 'IP адрес добавлен в белый список!'
         ]);
     }
 
@@ -43,7 +43,7 @@ class AccessListController extends Controller
             ]);
         }
         else{
-            throw new BadResponse('Текущий ip дресс не включен в белый лист');
+            throw new BadResponse('Текущий ip адрес не включен в белый лист');
         }
 
     }

@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $description
  * @property-read mixed $company
  * @property-read mixed $subprojects
+ * @property-read mixed $files
  */
 class Project extends Model
 {
@@ -36,4 +37,11 @@ class Project extends Model
     {
         return $this->hasMany(Subproject::class, 'project_id');
     }
+
+    public function files(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(Files::class, 'filestable');
+    }
+
+
 }
