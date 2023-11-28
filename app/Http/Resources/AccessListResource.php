@@ -20,7 +20,7 @@ class AccessListResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'address' => $this->ip_address
+            'address' => $this->address
         ];
     }
 }

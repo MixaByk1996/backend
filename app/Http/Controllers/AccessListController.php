@@ -12,7 +12,7 @@ class AccessListController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): AccessListCollection
     {
         return new AccessListCollection(AccessList::all());
     }

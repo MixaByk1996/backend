@@ -27,5 +27,5 @@ Route::apiResource('projects', \App\Http\Controllers\ProjectController::class);
 Route::apiResource('subprojects', \App\Http\Controllers\SubprojectController::class);
 Route::post('/login', [\App\Http\Controllers\UserController::class, 'login']);
 Route::post('/register', [\App\Http\Controllers\UserController::class, 'register']);
-Route::post('/logout', [\App\Http\Controllers\UserController::class, 'logout']);
+Route::post('/logout', [\App\Http\Controllers\UserController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/has-address', [\App\Http\Controllers\AccessListController::class, 'hashIpAddress']);
