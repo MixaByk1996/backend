@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Collections\UserCollection;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,9 +14,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): UserCollection
     {
-        //
+        return new UserCollection(User::all());
     }
 
     /**
@@ -70,17 +72,22 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): UserResource
     {
-        //
+        $user = User::query()->where('id', $id)->first();
+        return new UserResource($user);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): \Illuminate\Http\JsonResponse
     {
-        //
+        $user = User::query()->where('id', $id)->first();
+        $user->update($request->all());
+        return response()->json([
+            'message' => 'Данные пользователя обновлены'
+        ]);
     }
 
     /**

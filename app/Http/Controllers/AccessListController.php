@@ -74,11 +74,19 @@ class AccessListController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AccessList $accessList)
+    public function destroy(AccessList $accessList): \Illuminate\Http\JsonResponse
     {
         $accessList->delete();
         return response()->json([
             'message' => 'This IP adress is deleted'
+        ]);
+    }
+
+    public function deleteById(mixed $id): \Illuminate\Http\JsonResponse
+    {
+        $object = AccessList::query()->where('id', $id)->first()->delete();
+        return response()->json([
+            'message' => 'IP адрес успешно удален'
         ]);
     }
 }
