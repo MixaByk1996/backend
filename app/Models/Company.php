@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $name
  * @property string $photo_url
  * @property string $description
- * @property-read mixed $city
  * @property-read mixed $projects
  */
 class Company extends Model
@@ -26,10 +25,10 @@ class Company extends Model
         'description'
     ];
 
-    public function city(): BelongsTo
-    {
-        return $this->belongsTo(City::class);
-    }
+//    public function city(): BelongsTo
+//    {
+//        return $this->belongsTo(City::class);
+//    }
 
     public function projects(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

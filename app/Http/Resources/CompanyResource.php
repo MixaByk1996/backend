@@ -23,7 +23,6 @@ class CompanyResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'city' => new CityResource($this->city),
             'projects' => $this->projects,
         ];
     }

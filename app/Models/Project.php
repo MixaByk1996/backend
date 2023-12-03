@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read mixed $company
  * @property-read mixed $subprojects
  * @property-read mixed $files
+ * @property-read mixed $tags
  */
 class Project extends Model
 {
@@ -43,5 +44,9 @@ class Project extends Model
         return $this->morphMany(Files::class, 'filestable');
     }
 
+    public function tags(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(Tags::class, 'tagstable');
+    }
 
 }

@@ -29,6 +29,11 @@ class Subproject extends Model
         return $this->morphMany(Files::class, 'filestable');
     }
 
+    public function tags(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(Tags::class, 'tagstable');
+    }
+
     public function project(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Project::class);

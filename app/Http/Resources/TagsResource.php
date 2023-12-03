@@ -2,14 +2,14 @@
 
 namespace App\Http\Resources;
 
-use App\Models\User;
+use App\Models\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin User
+ * @mixin Tags
  */
-class UserResource extends JsonResource
+class TagsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,8 +20,8 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'login' => $this->login,
-            'rules' => $this->rules == "ADMIN" ? 'Администратор' : 'Пользователь',
+            'name' => $this->name,
+            'tagstable' => $this->tagstable
         ];
     }
 }

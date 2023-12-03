@@ -6,7 +6,9 @@ use App\Http\Resources\CityResource;
 use App\Http\Resources\Collections\CompanyCollection;
 use App\Http\Resources\CompanyResource;
 use App\Models\Company;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -23,9 +25,20 @@ class CompanyController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        Company::query()->create($request->all());
+//        Company::query()->create($request->all());
+        $validatedData = $request->validate([
+            'image_data' => 'required|file|mimes:jpeg,jpg,png,gif|max:2048',
+        ]);
+
+        Storage::disk('public')->putFileAs('/img/uploads/companies', new File($validatedData['image_data']), pathinfo($validatedData['image_data']->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $validatedData['image_data']->getClientOriginalExtension());
+        $image_name = pathinfo($validatedData['image_data']->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $validatedData['image_data']->getClientOriginalExtension();
+        $obj = new Company();
+        $obj->name = $request->get('name');
+        $obj->photo_url = $image_name;
+        $obj->description = $request->get('description');
+        $obj->save();
         return response()->json([
-            'message' => 'Company is added'
+            'message' => 'Компания успешно добавлена'
         ], 201);
     }
 

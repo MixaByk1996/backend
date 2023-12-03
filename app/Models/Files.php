@@ -20,7 +20,9 @@ class Files extends Model
     protected $fillable = [
         'name',
         'type',
-        'file_url'
+        'file_url',
+        'filestable_id',
+        'filestable_type',
     ];
 
     protected $casts = [
