@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property string $name
  * @property string $description
- * @property-read mixed $company
+ * @property mixed $company
  * @property-read mixed $subprojects
  * @property-read mixed $files
  * @property-read mixed $tags
@@ -23,7 +23,8 @@ class Project extends Model
     protected $table = 'project';
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'company_id'
     ];
     protected $casts = [
         'created_at' => 'datetime'

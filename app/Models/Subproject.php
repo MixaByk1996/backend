@@ -18,7 +18,8 @@ class Subproject extends Model
     protected $table = 'subproject';
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'project_id'
     ];
     protected $casts = [
         'created_at' => 'datetime'
@@ -38,6 +39,5 @@ class Subproject extends Model
     {
         return $this->belongsTo(Project::class);
     }
-
 
 }

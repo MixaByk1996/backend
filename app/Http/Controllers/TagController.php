@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\Collections\TagsConnection;
+use App\Models\Project;
+use App\Models\Subproject;
 use App\Models\Tags;
 use Illuminate\Http\Request;
 
@@ -21,7 +23,23 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-
+        $module = $request->get('module');
+        $id = $request->get('id');
+        $name = $request->get('name');
+        $tag = new Tags();
+        if($module == 'PROJECT'){
+            $project = Project::query()->where('id', $id)->first();
+            $tag->name = $name;
+            $project->tags()->save($tag);
+        }
+        else{
+            $project = Subproject::query()->where('id', $id)->first();
+            $tag->name = $name;
+            $project->tags()->save($tag);
+        }
+        return response()->json([
+            'message' => 'Тег добавлен'
+        ]);
     }
 
     /**

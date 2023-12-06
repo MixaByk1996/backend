@@ -28,6 +28,7 @@ Route::apiResource('projects', \App\Http\Controllers\ProjectController::class);
 Route::apiResource('subprojects', \App\Http\Controllers\SubprojectController::class);
 Route::apiResource('users', \App\Http\Controllers\UserController::class);
 Route::apiResource('backup', \App\Http\Controllers\BackupController::class);
+Route::apiResource('tags', \App\Http\Controllers\TagController::class);
 Route::post('/login', [\App\Http\Controllers\UserController::class, 'login']);
 Route::post('/register', [\App\Http\Controllers\UserController::class, 'register']);
 Route::post('/logout', [\App\Http\Controllers\UserController::class, 'logout'])->middleware('auth:sanctum');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\Collections\ProjectCollection;
 use App\Http\Resources\ProjectResource;
+use App\Models\Company;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,15 @@ class ProjectController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        Project::query()->create($request->all());
+           Project::query()->create($request->all());
+//        $project = new Project();
+//        $project->name = $request->get('name');
+//        $project->description = $request->get('description');
+//        $company_id = $request->get('company_id');
+//        $company = Company::query()->where('id', $company_id)->first();
+//        $project->company = $company;
+//        $project->save();
+
         return response()->json([
             'message' => 'Project is added'
         ], 201);
