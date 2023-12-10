@@ -6,6 +6,7 @@ use App\Http\Resources\Collections\BackupCollection;
 use App\Models\Backup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class BackupController extends Controller
 {
@@ -29,6 +30,13 @@ class BackupController extends Controller
         ]);
     }
 
+
+    public function getPdf(Request $request): \Illuminate\Http\Response
+    {
+        $data = $request->get('data');
+        $pdf = PDF::loadView('pdf', ['data' => $data]);
+        return $pdf->download();
+    }
     /**
      * Display the specified resource.
      */

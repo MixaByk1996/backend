@@ -26,7 +26,7 @@ class ProjectResource extends JsonResource
             'subproject' => $this->subprojects,
             'files' => $this->files,
             'company' => $this->company,
-            'tags' => $this->tags()
+            'tags' => $this->tags
         ];
     }
 }

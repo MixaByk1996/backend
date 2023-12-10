@@ -23,7 +23,8 @@ class SubprojectResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'files' => $this->files,
-            'project' => $this->project
+            'project' => $this->project,
+            'tags' => $this->tags
         ];
     }
 }

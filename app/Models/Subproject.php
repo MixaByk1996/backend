@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $description
  * @property-read mixed $files
  * @property-read mixed $project
+ * @property-read mixed $tags
  */
 class Subproject extends Model
 {

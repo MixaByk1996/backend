@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Collections\ProjectCollection;
 use App\Http\Resources\ProjectResource;
 use App\Models\Company;
+use App\Models\Files;
 use App\Models\Project;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -23,17 +27,21 @@ class ProjectController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-           Project::query()->create($request->all());
-//        $project = new Project();
-//        $project->name = $request->get('name');
-//        $project->description = $request->get('description');
-//        $company_id = $request->get('company_id');
-//        $company = Company::query()->where('id', $company_id)->first();
-//        $project->company = $company;
-//        $project->save();
+           $project = Project::query()->create($request->all());
+
+           $files = $request->file('files_add');
+           foreach ($files as $file){
+               Storage::disk('public')->putFileAs('/projects/uploads/', new File($file), pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension());
+               $image_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension();
+               $fileObj = new Files();
+               $fileObj->name = $image_name;
+               $fileObj->type = $file->getClientOriginalExtension();
+               $fileObj->file_url = Storage::url('projects/uploads/' . $image_name );
+               $project->files()->save($fileObj);
+           }
 
         return response()->json([
-            'message' => 'Project is added'
+            'message' => 'Проект успешно добавлен'
         ], 201);
     }
 
@@ -47,7 +55,7 @@ class ProjectController extends Controller
             return new ProjectResource($project);
         }
         return response()->json([
-            'error' => "empty!"
+            'error' => "Пусто!"
         ]);
     }
 
@@ -59,7 +67,7 @@ class ProjectController extends Controller
         $project = Project::query()->where('id', $id)->first();
         $project?->update($request->all());
         return response()->json([
-            'message'=> 'Project is updated'
+            'message'=> 'Проект обновлен'
         ],201);
     }
 
@@ -71,7 +79,7 @@ class ProjectController extends Controller
         $project = Project::query()->where('id', $id)->first();
         $project?->delete();
         return response()->json([
-            'message'=> 'Project is deleted'
+            'message'=> 'Проект удален'
         ]);
     }
 }
