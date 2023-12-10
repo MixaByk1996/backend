@@ -59,16 +59,29 @@ class ProjectController extends Controller
         ]);
     }
 
+    public function getUpdate(Request $request, string $id): \Illuminate\Http\JsonResponse
+    {
+        $project = Project::query()->where('id', $id)->first();
+        $project->name = $request->get('name');
+        $project->description = $request->get('description');
+        $project->save();
+        return response()->json([
+            'message'=> 'Проект обновлен'
+        ]);
+    }
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id): \Illuminate\Http\JsonResponse
     {
         $project = Project::query()->where('id', $id)->first();
-        $project?->update($request->all());
+        $project->name = $request->get('name');
+        $project->description = $request->get('description');
+        $project->save();
         return response()->json([
             'message'=> 'Проект обновлен'
-        ],201);
+        ]);
     }
 
     /**
