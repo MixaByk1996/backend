@@ -13,16 +13,18 @@
             <th>Name</th>
             <th>Description</th>
         </tr>
+        @foreach($data as $item)
         <tr class="items">
-            @foreach($data as $item)
+
                 <td>
                     {{$item['name']}}
                 </td>
                 <td>
                     {{$item['description']}}
                 </td>
-            @endforeach
+
         </tr>
+        @endforeach
     </table>
 </div>
 

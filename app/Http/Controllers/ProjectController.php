@@ -45,6 +45,24 @@ class ProjectController extends Controller
         ], 201);
     }
 
+    public function addFileInProject(Request $request, string $id): \Illuminate\Http\JsonResponse
+    {
+        $project = Project::query()->where('id', $id)->first();
+        $files = $request->file('files_add');
+        foreach ($files as $file){
+            Storage::disk('public')->putFileAs('/projects/uploads/', new File($file), pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension());
+            $image_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension();
+            $fileObj = new Files();
+            $fileObj->name = $image_name;
+            $fileObj->type = $file->getClientOriginalExtension();
+            $fileObj->file_url = Storage::url('projects/uploads/' . $image_name );
+            $project->files()->save($fileObj);
+        }
+        return response()->json([
+            'message' => 'Файлы успешно добавлен'
+        ], 201);
+    }
+
     /**
      * Display the specified resource.
      */

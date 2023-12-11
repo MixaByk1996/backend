@@ -30,6 +30,7 @@ Route::apiResource('users', \App\Http\Controllers\UserController::class);
 Route::apiResource('backup', \App\Http\Controllers\BackupController::class);
 Route::apiResource('tags', \App\Http\Controllers\TagController::class);
 Route::post('update-project/{id}', [\App\Http\Controllers\ProjectController::class, 'getUpdate']);
+Route::post('add-files-to-project/{id}', [\App\Http\Controllers\ProjectController::class, 'addFileInProject']);
 Route::post('/login', [\App\Http\Controllers\UserController::class, 'login']);
 Route::post('/download-pdf', [\App\Http\Controllers\BackupController::class, 'getPdf']);
 Route::post('/register', [\App\Http\Controllers\UserController::class, 'register']);

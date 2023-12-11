@@ -64,7 +64,7 @@ class FilesController extends Controller
         $files = Files::query()->where('id', $id)->first();
         $files?->delete();
         return response()->json([
-            'message' => 'Project is deleted'
+            'message' => 'Файл удален'
         ]);
     }
 }
