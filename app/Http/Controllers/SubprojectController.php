@@ -77,7 +77,7 @@ class SubprojectController extends Controller
     {
         $subject->update($request->all());
         return response()->json([
-            'message' => 'Subproject is updated'
+            'message' => 'Подпроект успешно обновлен'
         ], 201);
     }
 
