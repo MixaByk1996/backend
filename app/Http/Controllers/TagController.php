@@ -61,8 +61,12 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): \Illuminate\Http\JsonResponse
     {
-        //
+        $project = Tags::query()->where('id', $id)->first();
+        $project?->delete();
+        return response()->json([
+            'message'=> 'Тег удален'
+        ]);
     }
 }

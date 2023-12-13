@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Collections\SubprojectCollection;
 use App\Http\Resources\SubprojectResource;
 use App\Models\Files;
+use App\Models\Project;
 use App\Models\Subproject;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
@@ -42,6 +43,24 @@ class SubprojectController extends Controller
         ], 201);
     }
 
+    public function addFileInSubProject(Request $request, string $id): \Illuminate\Http\JsonResponse
+    {
+        $subproject = Subproject::query()->where('id', $id)->first();
+        $files = $request->file('files_add');
+        foreach ($files as $file){
+            Storage::disk('public')->putFileAs('/subprojects/uploads/', new File($file), pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension());
+            $image_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension();
+            $fileObj = new Files();
+            $fileObj->name = $image_name;
+            $fileObj->type = $file->getClientOriginalExtension();
+            $fileObj->file_url = Storage::url('subprojects/uploads/' . $image_name );
+            $subproject->files()->save($fileObj);
+        }
+        return response()->json([
+            'message' => 'Файлы успешно добавлен'
+        ], 201);
+    }
+
     /**
      * Display the specified resource.
      */
@@ -69,7 +88,7 @@ class SubprojectController extends Controller
     {
         $subject->delete();
         return response()->json([
-            'message' => 'Subproject is deleted'
+            'message' => 'Подпроект удален'
         ]);
     }
 }
