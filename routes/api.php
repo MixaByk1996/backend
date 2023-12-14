@@ -37,4 +37,4 @@ Route::post('/download-pdf', [\App\Http\Controllers\BackupController::class, 'ge
 Route::post('/register', [\App\Http\Controllers\UserController::class, 'register']);
 Route::post('/logout', [\App\Http\Controllers\UserController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/has-address', [\App\Http\Controllers\AccessListController::class, 'hashIpAddress']);
-Route::get('/add_ip', [\App\Http\Controllers\AccessListController::class, 'addIpAddress']);
+Route::get('/add-ip', [\App\Http\Controllers\AccessListController::class, 'addIpAddress']);
