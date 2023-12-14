@@ -22,10 +22,10 @@ class AccessListController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $obj = new AccessList();
-        $obj->address = $request->ip();
+        $obj->address = $request->get('ip');
         $obj->save();
         return response()->json([
             'message' => 'IP адрес добавлен в белый список!'
