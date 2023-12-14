@@ -24,7 +24,19 @@ class AccessListController extends Controller
      */
     public function store(Request $request)
     {
-        AccessList::query()->create($request->all());
+        $obj = new AccessList();
+        $obj->address = $request->ip();
+        $obj->save();
+        return response()->json([
+            'message' => 'IP адрес добавлен в белый список!'
+        ]);
+    }
+
+    public function addIpAddress(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $obj = new AccessList();
+        $obj->address = $request->ip();
+        $obj->save();
         return response()->json([
             'message' => 'IP адрес добавлен в белый список!'
         ]);
