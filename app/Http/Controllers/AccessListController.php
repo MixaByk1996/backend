@@ -25,7 +25,7 @@ class AccessListController extends Controller
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $obj = new AccessList();
-        $obj->address = $request->get('ip');
+        $obj->address = $request->get('address');
         $obj->save();
         return response()->json([
             'message' => 'IP адрес добавлен в белый список!'
