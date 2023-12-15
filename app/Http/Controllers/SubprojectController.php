@@ -26,17 +26,16 @@ class SubprojectController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        $subproject = Subproject::query()->create($request->all());
-        $files = $request->file('files_add');
-        foreach ($files as $file){
-            Storage::disk('public')->putFileAs('subprojects/uploads/', new File($file), pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension());
-            $image_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension();
-            $fileObj = new Files();
-            $fileObj->name = $image_name;
-            $fileObj->type = $file->getClientOriginalExtension();
-            $fileObj->file_url = Storage::url('subprojects/uploads/' . $image_name );
-            $subproject->files()->save($fileObj);
-        }
+        Subproject::query()->create($request->all());
+//        foreach ($files as $file){
+//            Storage::disk('public')->putFileAs('subprojects/uploads/', new File($file), pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension());
+//            $image_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension();
+//            $fileObj = new Files();
+//            $fileObj->name = $image_name;
+//            $fileObj->type = $file->getClientOriginalExtension();
+//            $fileObj->file_url = Storage::url('subprojects/uploads/' . $image_name );
+//            $subproject->files()->save($fileObj);
+//        }
 
         return response()->json([
             'message' => 'Подпроект добавлен'

@@ -60,6 +60,15 @@ class BackupController extends Controller
         //
     }
 
+    public function delBackup(string $id): \Illuminate\Http\JsonResponse
+    {
+        $project = Backup::query()->where('id', $id)->first();
+        $project->delete();
+        return response()->json([
+            'message'=> 'Бекап удален'
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

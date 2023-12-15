@@ -90,11 +90,24 @@ class UserController extends Controller
         ]);
     }
 
+    public function delUser(string $id): \Illuminate\Http\JsonResponse
+    {
+        $project = User::query()->where('id', $id)->first();
+        $project->delete();
+        return response()->json([
+            'message'=> 'Пользователь удален'
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): \Illuminate\Http\JsonResponse
     {
-        //
+        $project = User::query()->where('id', $id)->first();
+        $project->delete();
+        return response()->json([
+            'message'=> 'Пользователь удален'
+        ]);
     }
 }

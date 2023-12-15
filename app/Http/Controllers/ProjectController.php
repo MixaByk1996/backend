@@ -27,18 +27,18 @@ class ProjectController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-           $project = Project::query()->create($request->all());
-
-           $files = $request->file('files_add');
-           foreach ($files as $file){
-               Storage::disk('public')->putFileAs('/projects/uploads/', new File($file), pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension());
-               $image_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension();
-               $fileObj = new Files();
-               $fileObj->name = $image_name;
-               $fileObj->type = $file->getClientOriginalExtension();
-               $fileObj->file_url = Storage::url('projects/uploads/' . $image_name );
-               $project->files()->save($fileObj);
-           }
+           Project::query()->create($request->all());
+//
+//           $files = $request->file('files_add');
+//           foreach ($files as $file){
+//               Storage::disk('public')->putFileAs('/projects/uploads/', new File($file), pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension());
+//               $image_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension();
+//               $fileObj = new Files();
+//               $fileObj->name = $image_name;
+//               $fileObj->type = $file->getClientOriginalExtension();
+//               $fileObj->file_url = Storage::url('projects/uploads/' . $image_name );
+//               $project->files()->save($fileObj);
+//           }
 
         return response()->json([
             'message' => 'Проект успешно добавлен'
@@ -108,7 +108,9 @@ class ProjectController extends Controller
     public function destroy(string $id): \Illuminate\Http\JsonResponse
     {
         $project = Project::query()->where('id', $id)->first();
-        $project?->delete();
+        $project->subprojects()->delete();
+        $project->files()->delete();
+        $project->delete();
         return response()->json([
             'message'=> 'Проект удален'
         ]);

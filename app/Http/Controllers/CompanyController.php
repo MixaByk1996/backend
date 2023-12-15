@@ -68,8 +68,9 @@ class CompanyController extends Controller
     public function destroy(Company $company): \Illuminate\Http\JsonResponse
     {
         $company->delete();
+        $company->projects()->delete();
         return response()->json([
-            'message' => 'Company is deleted'
+            'message' => 'Компания удалена'
         ], 201);
     }
 }

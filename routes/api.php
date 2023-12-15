@@ -25,6 +25,8 @@ Route::apiResource('city', \App\Http\Controllers\CityController::class);
 Route::apiResource('country', \App\Http\Controllers\CountryController::class);
 Route::apiResource('access-list', \App\Http\Controllers\AccessListController::class);
 Route::get('access-list/delete/{id}', [\App\Http\Controllers\AccessListController::class, 'deleteById']);
+Route::get('user/delete/{id}', [\App\Http\Controllers\UserController::class, 'delUser']);
+Route::get('backup/delete/{id}', [\App\Http\Controllers\BackupController::class, 'delBackup']);
 Route::apiResource('company', \App\Http\Controllers\CompanyController::class);
 Route::apiResource('files', \App\Http\Controllers\FilesController::class);
 Route::apiResource('projects', \App\Http\Controllers\ProjectController::class);
