@@ -85,6 +85,8 @@ class SubprojectController extends Controller
      */
     public function destroy(Subproject $subject): \Illuminate\Http\JsonResponse
     {
+        $subject->tags()->delete();
+        $subject->files()->delete();
         $subject->delete();
         return response()->json([
             'message' => 'Подпроект удален'

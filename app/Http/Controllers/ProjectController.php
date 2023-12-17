@@ -96,6 +96,7 @@ class ProjectController extends Controller
     public function destroy(string $id): \Illuminate\Http\JsonResponse
     {
         $project = Project::query()->where('id', $id)->first();
+        $project->tags()->delete();
         $project->subprojects()->delete();
         $project->files()->delete();
         $project->delete();
