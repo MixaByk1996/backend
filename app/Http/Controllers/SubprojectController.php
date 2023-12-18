@@ -21,12 +21,17 @@ class SubprojectController extends Controller
         return new SubprojectCollection(Subproject::all());
     }
 
+    public function searchByKeyWord(Request $request){
+        return null;
+    }
+
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): \Illuminate\Http\JsonResponse
+    public function store(Request $request): string
     {
-        Subproject::query()->create($request->all());
+        try {
+            Subproject::query()->create($request->all());
 //        foreach ($files as $file){
 //            Storage::disk('public')->putFileAs('subprojects/uploads/', new File($file), pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension());
 //            $image_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . time() . '.' . $file->getClientOriginalExtension();
@@ -37,9 +42,15 @@ class SubprojectController extends Controller
 //            $subproject->files()->save($fileObj);
 //        }
 
-        return response()->json([
-            'message' => 'Подпроект добавлен'
-        ], 201);
+            return response()->json([
+                'message' => 'Подпроект добавлен'
+            ], 201);
+        }catch (\Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage()
+            ]);
+        }
+
     }
 
     public function addFileInSubProject(Request $request, string $id): \Illuminate\Http\JsonResponse
