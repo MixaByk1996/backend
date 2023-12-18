@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read mixed $subprojects
  * @property-read mixed $files
  * @property-read mixed $tags
+ * @property-read mixed $listprofs
  */
 class Project extends Model
 {
@@ -43,6 +44,11 @@ class Project extends Model
     public function files(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Files::class, 'filestable');
+    }
+
+    public function listprofs(): HasMany
+    {
+        return $this->hasMany(Listprof::class, 'project_id');
     }
 
     public function tags(): \Illuminate\Database\Eloquent\Relations\MorphMany
