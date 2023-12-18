@@ -34,6 +34,7 @@ Route::apiResource('subprojects', \App\Http\Controllers\SubprojectController::cl
 Route::apiResource('users', \App\Http\Controllers\UserController::class);
 Route::apiResource('backup', \App\Http\Controllers\BackupController::class);
 Route::apiResource('tags', \App\Http\Controllers\TagController::class);
+Route::post('get-search', [\App\Http\Controllers\SubprojectController::class, 'searchByKeyWord']);
 Route::post('update-project/{id}', [\App\Http\Controllers\ProjectController::class, 'getUpdate']);
 Route::post('add-files-to-project/{id}', [\App\Http\Controllers\ProjectController::class, 'addFileInProject']);
 Route::post('add-files-to-subproject/{id}', [\App\Http\Controllers\SubprojectController::class, 'addFileInSubProject']);

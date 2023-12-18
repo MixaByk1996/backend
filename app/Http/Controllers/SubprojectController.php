@@ -21,8 +21,10 @@ class SubprojectController extends Controller
         return new SubprojectCollection(Subproject::all());
     }
 
-    public function searchByKeyWord(Request $request){
-        return null;
+    public function searchByKeyWord(Request $request): SubprojectCollection
+    {
+        $search = $request->get('search');
+        return new SubprojectCollection(Subproject::query()->where('description', 'like', "%$search%")->get());
     }
 
     /**
