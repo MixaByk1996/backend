@@ -23,7 +23,7 @@ class ProjectResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'subproject' => $this->subprojects,
+            'subproject' => new SubprojectResource($this->subprojects),
             'files' => $this->files,
             'company' => $this->company,
             'tags' => $this->tags
