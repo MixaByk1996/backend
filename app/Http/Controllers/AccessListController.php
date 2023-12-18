@@ -42,9 +42,6 @@ class AccessListController extends Controller
         ]);
     }
 
-    /**
-     * @throws BadResponse
-     */
     public function hashIpAddress(Request $request): \Illuminate\Http\JsonResponse
     {
         $ip = $request->ip();
@@ -55,7 +52,9 @@ class AccessListController extends Controller
             ]);
         }
         else{
-            throw new BadResponse('Текущий ip адрес не включен в белый лист');
+            return response()->json([
+                'message' => 'Текущий ip адрес не включен в белый лист'
+            ]);
         }
 
     }
