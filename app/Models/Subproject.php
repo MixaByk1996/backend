@@ -20,7 +20,10 @@ class Subproject extends Model
     protected $fillable = [
         'name',
         'description',
-        'project_id'
+        'project_id',
+        'tagstable_id',
+        'tagstable_type'
+
     ];
     protected $casts = [
         'created_at' => 'datetime'
