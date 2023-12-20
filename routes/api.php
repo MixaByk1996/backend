@@ -31,6 +31,7 @@ Route::apiResource('company', \App\Http\Controllers\CompanyController::class);
 Route::apiResource('files', \App\Http\Controllers\FilesController::class);
 Route::apiResource('projects', \App\Http\Controllers\ProjectController::class);
 Route::apiResource('subprojects', \App\Http\Controllers\SubprojectController::class);
+Route::apiResource('templates', \App\Http\Controllers\TemplatesListController::class);
 Route::apiResource('users', \App\Http\Controllers\UserController::class);
 Route::apiResource('backup', \App\Http\Controllers\BackupController::class);
 Route::apiResource('tags', \App\Http\Controllers\TagController::class);
