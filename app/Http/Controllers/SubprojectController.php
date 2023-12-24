@@ -85,9 +85,12 @@ class SubprojectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Subproject $subject): \Illuminate\Http\JsonResponse
+    public function update(Request $request, string $id): \Illuminate\Http\JsonResponse
     {
-        $subject->update($request->all());
+        $subject = Subproject::query()->where('id', $id)->first();
+        $subject->name = $request->get('name');
+        $subject->description = $request->get('description');
+        $subject->save();
         return response()->json([
             'message' => 'Подпроект успешно обновлен'
         ], 201);
