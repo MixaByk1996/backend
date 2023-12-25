@@ -52,7 +52,24 @@ class SubprojectController extends Controller
                 'message' => $exception->getMessage()
             ]);
         }
+    }
 
+    public function updateAllDescriptionById(Request $request, string $id): \Illuminate\Http\JsonResponse
+    {
+        $old_val = $request->get('old');
+        $new_val = $request->get('new');
+        $arr = Subproject::query()->where('template_id', $id)->get();
+
+        foreach ($arr as $item){
+            $description = $item->description;
+            $new_description = str_replace($old_val, $new_val, $description);
+            $item->description = $new_description;
+            $item->save();
+        }
+
+        return response()->json([
+            'message'=> 'Успешно обновлены'
+        ]);
     }
 
     public function addFileInSubProject(Request $request, string $id): \Illuminate\Http\JsonResponse
@@ -92,7 +109,7 @@ class SubprojectController extends Controller
         $subject->description = $request->get('description');
         $subject->save();
         return response()->json([
-            'message' => 'Подпроект успешно обновлен'
+            'message' => 'Лист успешно обновлен'
         ], 201);
     }
 
@@ -105,7 +122,7 @@ class SubprojectController extends Controller
         $subject->files()->delete();
         $subject->delete();
         return response()->json([
-            'message' => 'Подпроект удален'
+            'message' => 'Лист удален'
         ]);
     }
 }

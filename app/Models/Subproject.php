@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property string $description
+ * @property int $template_id
  * @property-read mixed $files
  * @property-read mixed $project
  * @property-read mixed $tags
@@ -22,8 +23,8 @@ class Subproject extends Model
         'description',
         'project_id',
         'tagstable_id',
-        'tagstable_type'
-
+        'tagstable_type',
+        'template_id'
     ];
     protected $casts = [
         'created_at' => 'datetime'
