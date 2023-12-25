@@ -56,20 +56,27 @@ class SubprojectController extends Controller
 
     public function updateAllDescriptionById(Request $request, string $id): \Illuminate\Http\JsonResponse
     {
-        $old_val = $request->get('old');
-        $new_val = $request->get('new');
-        $arr = Subproject::query()->where('template_id', $id)->get();
+        try {
+            $old_val = $request->get('old');
+            $new_val = $request->get('new');
+            $arr = Subproject::query()->where('template_id', $id)->get();
 
-        foreach ($arr as $item){
-            $description = $item->description;
-            $new_description = str_replace($old_val, $new_val, $description);
-            $item->description = $new_description;
-            $item->save();
+            foreach ($arr as $item){
+                $description = $item->description;
+                $new_description = str_replace($old_val, $new_val, $description);
+                $item->description = $new_description;
+                $item->save();
+            }
+
+            return response()->json([
+                'message'=> 'Успешно обновлены'
+            ]);
+        }catch (\Exception $exception){
+            return response()->json([
+                'message'=> $exception->getMessage()
+            ]);
         }
 
-        return response()->json([
-            'message'=> 'Успешно обновлены'
-        ]);
     }
 
     public function addFileInSubProject(Request $request, string $id): \Illuminate\Http\JsonResponse
