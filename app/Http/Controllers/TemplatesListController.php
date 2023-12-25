@@ -48,8 +48,7 @@ class TemplatesListController extends Controller
     {
         try {
             $update = TemplatesList::query()->where('id', $id)->first();
-            $update->name = $request->get('name');
-            $update->text = $request->get('text');
+            $update->update($request->all());
             return response()->json([
                 'message' => 'Шаблон обновлен'
             ]);
