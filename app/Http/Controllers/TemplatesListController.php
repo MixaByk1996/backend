@@ -41,6 +41,20 @@ class TemplatesListController extends Controller
         return new TemplatesListResource($obj);
     }
 
+    public function updateTemplate(Request $request, string $id): \Illuminate\Http\JsonResponse|string
+    {
+        try {
+            $update = TemplatesList::query()->where('id', $id)->first();
+            $update->update($request->all());
+            $update->save();
+            return response()->json([
+                'message' => 'Шаблон обновлен'
+            ]);
+        }catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -49,6 +63,7 @@ class TemplatesListController extends Controller
         try {
             $update = TemplatesList::query()->where('id', $id)->first();
             $update->update($request->all());
+            $update->save();
             return response()->json([
                 'message' => 'Шаблон обновлен'
             ]);

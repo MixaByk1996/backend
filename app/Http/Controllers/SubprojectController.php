@@ -63,7 +63,7 @@ class SubprojectController extends Controller
 
             foreach ($arr as $item){
                 $description = $item->description;
-                $new_description = str_replace($old_val, $new_val, $description);
+                $new_description = str_replace(strip_tags($old_val), strip_tags($new_val), strip_tags($description));
                 $item->description = $new_description;
                 $item->save();
             }
